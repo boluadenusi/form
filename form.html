@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .form-control {
+            margin-bottom: 15px;
+        }
+        .form-control input {
+            width: 100%;
+            padding: 10px;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+        button {
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <form id="form">
+        <div class="form-control">
+            <input type="text" id="name" placeholder="Name">
+            <div class="error" id="nameError"></div>
+        </div>
+
+        <div class="form-control">
+            <input type="email" id="email" placeholder="Email">
+            <div class="error" id="emailError"></div>
+        </div>
+
+        <div class="form-control">
+            <input type="password" id="password" placeholder="Password">
+            <div class="error" id="passwordError"></div>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+const form = document.getElementById('form');
+const nameInput = document.getElementById('name');
+const emailInput = document.getElementById('email');
+const passwordInput = document.getElementById('password');
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    let isValid = true;
+
+    // Regex patterns
+    const nameRegex = /^[A-Za-z]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^[A-Za-z0-9]{10}$/;
+
+    // Name validation
+    if (!nameRegex.test(nameInput.value)) {
+        document.getElementById('nameError').innerText = "Name must contain only letters";
+        isValid = false;
+    } else {
+        document.getElementById('nameError').innerText = "";
+    }
+
+    // Email validation
+    if (!emailRegex.test(emailInput.value)) {
+        document.getElementById('emailError').innerText = "Enter a valid email address";
+        isValid = false;
+    } else {
+        document.getElementById('emailError').innerText = "";
+    }
+
+    // Password validation
+    if (!passwordRegex.test(passwordInput.value)) {
+        document.getElementById('passwordError').innerText =
+            "Password must be exactly 10 characters (letters & numbers only)";
+        isValid = false;
+    } else {
+        document.getElementById('passwordError').innerText = "";
+    }
+
+    if (isValid) {
+        alert("Form submitted successfully ✅");
+        form.reset();
+    }
+});
+</script>
+
+</body>
+</html>
